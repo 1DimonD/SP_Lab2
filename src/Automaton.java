@@ -5,24 +5,25 @@ public class Automaton {
 
     public class State {
         public boolean isFinal = false;
-        private ArrayList<Map.Entry<Integer, Integer>> transitions = new ArrayList<>();
+        public ArrayList<Map.Entry<Integer, Integer>> transitions = new ArrayList<>();
 
         public void AddTransition(int alphabetSymbol, int toState) {
             transitions.add(new AbstractMap.SimpleEntry<>(alphabetSymbol, toState));
         }
 
         public int go(int alphabetSymbol) {
-            if(transitions.containsKey(alphabetSymbol))
+            if(transitions.contains(alphabetSymbol))
             {
-                return transitions.get(alphabetSymbol);
+                return transitions.get(alphabetSymbol).getValue();
             }
 
             return -1;
         }
     }
 
-    private int alphabetCount, statesCount, startState;
-    private ArrayList<State> states;
+    private int alphabetCount, statesCount;
+    public int startState;
+    public ArrayList<State> states;
     public Automaton(String filepath) {
         try(Scanner in = new Scanner(new FileReader(filepath))) {
             alphabetCount = in.nextInt();
@@ -48,8 +49,6 @@ public class Automaton {
             System.exit(0);
         }
     }
-    public boolean IsContained(String w) {
 
-        return true;
-    }
+
 }
