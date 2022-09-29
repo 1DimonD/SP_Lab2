@@ -11,17 +11,9 @@ public class Automaton {
             transitions.add(new AbstractMap.SimpleEntry<>(alphabetSymbol, toState));
         }
 
-        public int go(int alphabetSymbol) {
-            if(transitions.contains(alphabetSymbol))
-            {
-                return transitions.get(alphabetSymbol).getValue();
-            }
-
-            return -1;
-        }
     }
 
-    private int alphabetCount, statesCount;
+    public int alphabetCount, statesCount;
     public int startState;
     public ArrayList<State> states;
     public Automaton(String filepath) {

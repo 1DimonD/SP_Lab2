@@ -5,9 +5,9 @@ import java.util.Scanner;
 public class Main {
 
     private static Automaton au;
-    private static String w_0, currWord = "";
+    private static String w_0 = "", currWord = "";
     static boolean IsSubpath(int currState) {
-        if(currWord.length() > au.states.size()) {
+        if(currWord.length() > w_0.length()) {
             return false;
         }
 
@@ -16,11 +16,11 @@ public class Main {
         }
 
         for(Map.Entry<Integer, Integer> x : au.states.get(currState).transitions) {
-            currWord = currWord + x.getKey();
+            currWord = currWord + (currWord.isEmpty() ? "" : " ") + x.getKey();
             if(IsSubpath(x.getValue())) {
                 return true;
             }
-            currWord = currWord.substring(0, currWord.length()-1);
+            currWord = currWord.substring(0, currWord.length()-2);
         }
 
         return false;
@@ -31,7 +31,20 @@ public class Main {
 
         Scanner in = new Scanner(System.in);
         System.out.println("Enter any num sequence: ");
-        w_0 = in.nextLine().replaceAll(" ", "");
+        int tmp = 0;
+        while (in.hasNextInt()) {
+            tmp = in.nextInt();
+
+            if(tmp >= au.alphabetCount || tmp < 0) {
+                System.out.println("Wrong input");
+                System.exit(0);
+            }
+
+            w_0 += tmp + " ";
+        }
+        if(!w_0.isEmpty()) {
+            w_0 = w_0.substring(0, w_0.length()-1);
+        }
 
         System.out.println(IsSubpath(au.startState));
     }
