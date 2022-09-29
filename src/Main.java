@@ -7,7 +7,7 @@ public class Main {
     private static Automaton au;
     private static String w_0 = "", currWord = "";
     static boolean IsSubpath(int currState) {
-        if(currWord.length() > w_0.length()) {
+        if(currWord.length() > au.statesCount) {
             return false;
         }
 
@@ -20,14 +20,14 @@ public class Main {
             if(IsSubpath(x.getValue())) {
                 return true;
             }
-            currWord = currWord.substring(0, currWord.length()-2);
+            currWord = currWord.substring(0, (currWord.length()>1 ? currWord.length()-2 : currWord.length()-1));
         }
 
         return false;
     }
 
     public static void main(String[] args) {
-        au = new Automaton("resources/Automaton_1.txt");
+        au = new Automaton("resources/Automaton_2.txt");
 
         Scanner in = new Scanner(System.in);
         System.out.println("Enter any num sequence: ");

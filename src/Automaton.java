@@ -28,13 +28,28 @@ public class Automaton {
             }
 
             int finalStatesCount = in.nextInt();
+            int tmpState = 0;
             while(finalStatesCount > 0) {
-                states.get(in.nextInt()).isFinal = true;
+                tmpState = in.nextInt();
+                if(tmpState < 0 || tmpState >= statesCount) {
+                    System.out.println("Wrong input automaton");
+                    System.exit(0);
+                }
+                states.get(tmpState).isFinal = true;
                 finalStatesCount--;
             }
 
+            int letter = 0, tmpState2 = 0;
             while(in.hasNext()) {
-                states.get(in.nextInt()).AddTransition(in.nextInt(), in.nextInt());
+                tmpState = in.nextInt();
+                letter = in.nextInt();
+                tmpState2 = in.nextInt();
+                if(tmpState < 0 || tmpState >= statesCount || letter < 0 || letter >= alphabetCount ||
+                    tmpState2 < 0 || tmpState2 >= statesCount) {
+                    System.out.println("Wrong input automaton");
+                    System.exit(0);
+                }
+                states.get(tmpState).AddTransition(letter, tmpState2);
             }
         } catch (Exception e) {
             System.out.println("Can`t read file");
